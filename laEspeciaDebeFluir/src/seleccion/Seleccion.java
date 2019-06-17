@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
-import map.Map;
+import map.GameMap;
 
 public class Seleccion {
 	
@@ -18,9 +18,9 @@ public class Seleccion {
     public static void main(String[] args){
 
     	String player = args[1];
-		String path1 = args[2];
-		String path2 = args[3];
-		Map mapa = new Map();
+    	String ciudades = args[2];
+		String rutas = args[3];
+		map.GameMap mapa = new GameMap();
 		
 		String archivo = "seleccion"+player+".txt";
 		
@@ -29,13 +29,14 @@ public class Seleccion {
 			BufferedWriter buffer = new BufferedWriter(escritorDeArchivo);
 			PrintWriter impresion = new PrintWriter(buffer);
 			
-			mapa.loadFromFile(path1);
-			mapa.loadRoadsFromFile(path2);
+			mapa.loadFromFile(ciudades);
+			mapa.loadRoadsFromFile(rutas);
 			if (DIFICULT == EASY){
 				Random rand = new Random();
 				while (mapa.m_MapById.size()>2){
 					int random = rand.nextInt(mapa.m_MapById.size()-2);
 					String nombreCiudad = mapa.m_MapById.get(random+2).m_Name;
+					mapa.m_MapById.remove(random+2);
 					impresion.append(nombreCiudad+","+player);
 					buffer.newLine();
 				}

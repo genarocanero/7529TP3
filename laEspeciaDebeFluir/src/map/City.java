@@ -6,9 +6,11 @@ public class City {
 
 	public String m_Name;
 	public int m_CityId; //usado para los mapas
-	
-	public int m_Owner; //0 nadie, 1 jugador 1, 2 jugador 2
+
+	///0 nadie, 1 jugador 1, 2 jugador 2
+	public int m_Owner; 
 	public int m_Army;
+	public int[] m_IncomingArmy={0,0,0};
 	
 	public int m_Production;
 	
