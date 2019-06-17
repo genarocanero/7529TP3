@@ -15,10 +15,6 @@ import map.GameMap;
 
 public class Division {
 
-	public static int EASY =1;
-	public static int HARD =2;
-	public static int DIFICULT = EASY;
-
     public static void main(String[] args){
 
     	String ciudades = args[0];
