@@ -22,7 +22,10 @@ public class GameMap {
 	
 	public GameMap(){
 		m_LastCityId=0;
+		m_Map = new HashMap<String, City>();
+		m_MapById = new HashMap<Integer, City>();
 		m_Map.clear();
+		m_MapById.clear();
 	}
 	
 	public void addCity(City city){

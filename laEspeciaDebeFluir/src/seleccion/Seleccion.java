@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Random;
 
 import map.GameMap;
@@ -17,9 +18,9 @@ public class Seleccion {
 
     public static void main(String[] args){
 
-    	String player = args[1];
-    	String ciudades = args[2];
-		String rutas = args[3];
+    	String player = args[0];
+    	String ciudades = args[1];
+		String rutas = args[2];
 		map.GameMap mapa = new GameMap();
 		
 		String archivo = "seleccion"+player+".txt";
@@ -33,11 +34,15 @@ public class Seleccion {
 			mapa.loadRoadsFromFile(rutas);
 			if (DIFICULT == EASY){
 				Random rand = new Random();
-				while (mapa.m_MapById.size()>2){
-					int random = rand.nextInt(mapa.m_MapById.size()-2);
-					String nombreCiudad = mapa.m_MapById.get(random+2).m_Name;
-					mapa.m_MapById.remove(random+2);
-					impresion.append(nombreCiudad+","+player);
+				ArrayList<Integer> ciudadesRand = new ArrayList<Integer>();
+				//creo una lista de ciudades
+				for (int i=0;i<mapa.m_MapById.size()-2;i++ )
+					ciudadesRand.add(i+2);
+				while (ciudadesRand.size()>0){
+					int random = rand.nextInt(ciudadesRand.size());
+					String nombreCiudad = mapa.m_MapById.get(ciudadesRand.get(random)).m_Name;
+					ciudadesRand.remove(random);
+					impresion.append(nombreCiudad);
 					buffer.newLine();
 				}
 			}

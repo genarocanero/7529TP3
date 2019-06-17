@@ -17,13 +17,13 @@ public class Tactica {
 
     public static void main(String[] args){
 
-    	String player = args[1];
-    	String ciudades = args[2];
-		String rutas = args[3];
-		String imperio1 = args[4];
-		String cosecha1 = args[5];
-		String imperio2 = args[6];
-		String cosecha2 = args[7];
+    	String player = args[0];
+    	String ciudades = args[1];
+		String rutas = args[2];
+		String imperio1 = args[3];
+		String cosecha1 = args[4];
+		String imperio2 = args[5];
+		String cosecha2 = args[6];
 		map.GameMap mapa = new GameMap();
 		
 		String salida = "ataque"+player+".txt";
@@ -74,7 +74,7 @@ public class Tactica {
     	        	for (Map.Entry<Integer, City> destino : origen.getValue().m_RoadsDestination.entrySet()){
 
 	        			//si la ciudad tiene mas ejercito que el enemigo mandar la mitad
-		        		if (destino.getValue().m_Owner != jugador){
+		        		if (destino.getValue().m_Owner != jugador && destino.getValue().m_CityId>1){
 		        			if (origen.getValue().m_Army > destino.getValue().m_Army){
 		        				int marchar = origen.getValue().m_Army/2;
 		        				if (marchar >0){

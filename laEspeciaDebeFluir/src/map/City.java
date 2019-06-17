@@ -21,6 +21,8 @@ public class City {
 		m_Name = name;
 		m_Owner = owner;
 		m_Production = production;
+		m_RoadsCapasity = new HashMap <Integer, Integer>();
+		m_RoadsDestination = new HashMap <Integer, City>();
 		m_RoadsCapasity.clear();
 		m_RoadsDestination.clear();
 	}

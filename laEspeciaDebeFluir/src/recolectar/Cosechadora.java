@@ -15,7 +15,8 @@ public class Cosechadora {
      */
     static public int fordFulkerson(map.GameMap mapa, int jugador, int ciudades) 
     { 
-        int u, v; 
+        int u, v;
+        int fuente=ciudades-1;
         // crea el grafo recidual con las capacidades del grafo original
   
         // el grfo recidual indica la capacidad de 'a' a 'b' 
@@ -32,7 +33,7 @@ public class Cosechadora {
 	        	}
 	        	//agrego un camino desde la fuente hacia las ciudades que procuden
 	        	if (origen.getValue().m_Production > 0)
-	        		rGraph[ciudades][origen.getValue().m_CityId] = origen.getValue().m_Production;
+	        		rGraph[fuente][origen.getValue().m_CityId] = origen.getValue().m_Production;
 	        }
         }
   
@@ -42,18 +43,18 @@ public class Cosechadora {
         int max_flow = 0;  // flujo que se obtiene
   
         // mientras halla capacidad de flujo (bfs encontro un camino) agrega flujo
-        while (bfs(rGraph, ciudades, jugador, parent,ciudades)) 
+        while (bfs(rGraph, fuente, jugador, parent,ciudades)) 
         { 
             // obtiene el flujo de corte del camino encontrado
             int path_flow = Integer.MAX_VALUE; 
-            for (v=jugador; v!=ciudades; v=parent[v]) 
+            for (v=jugador; v!=fuente; v=parent[v]) 
             { 
                 u = parent[v]; 
                 path_flow = Math.min(path_flow, rGraph[u][v]); 
             } 
   
             // actualiza las capacidades del grafo recidual 
-            for (v=jugador; v != ciudades; v=parent[v]) 
+            for (v=jugador; v != fuente; v=parent[v]) 
             { 
                 u = parent[v]; 
                 rGraph[u][v] -= path_flow; 

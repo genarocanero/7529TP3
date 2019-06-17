@@ -18,13 +18,13 @@ public class Producir {
 
     public static void main(String[] args){
 
-    	String player = args[1];
-    	String ciudades = args[2];
-		String rutas = args[3];
-		String imperio1 = args[4];
-		String cosecha1 = args[5];
-		String imperio2 = args[6];
-		String cosecha2 = args[7];
+    	String player = args[0];
+    	String ciudades = args[1];
+		String rutas = args[2];
+		String imperio1 = args[3];
+		String cosecha1 = args[4];
+		String imperio2 = args[5];
+		String cosecha2 = args[6];
 		map.GameMap mapa = new GameMap();
 		
 		String salida = "cosecha"+player+"_temp.txt";

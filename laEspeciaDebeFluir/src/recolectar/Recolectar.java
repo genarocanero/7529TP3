@@ -10,10 +10,10 @@ public class Recolectar {
 
     public static void main(String[] args){
 
-    	String player = args[1];
-    	String ciudades = args[2];
-		String rutas = args[3];
-		String imperio = args[4];
+    	String player = args[0];
+    	String ciudades = args[1];
+		String rutas = args[2];
+		String imperio = args[3];
 		map.GameMap mapa = new GameMap();
 		
 		String salida = "cosecha"+player+".txt";

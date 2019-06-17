@@ -21,10 +21,10 @@ public class Division {
 
     public static void main(String[] args){
 
-    	String ciudades = args[1];
-		String rutas = args[2];
-		String seleccion1 = args[3];
-		String seleccion2 = args[4];
+    	String ciudades = args[0];
+		String rutas = args[1];
+		String seleccion1 = args[2];
+		String seleccion2 = args[3];
 		GameMap mapa = new GameMap();
 
 		String salida1 = "imperio1.txt";
@@ -59,7 +59,7 @@ public class Division {
     	for (int i=0;i<lines1.size();i++){
     		String a= lines1.get(i);
     		String b= lines2.get(i);
-    		if (a != b){
+    		if (!a.equals(b)){
     			if (mapa.m_Map.get(a) == null || mapa.m_Map.get(b) == null)
     				throw new Exception("reclamada ciudad inexistente");
     			
