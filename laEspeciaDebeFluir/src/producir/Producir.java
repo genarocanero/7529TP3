@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 
@@ -48,7 +49,9 @@ public class Producir {
 				reclutarEasy(mapa, Integer.parseInt(player), especia);
 			}
 			if (DIFICULT == HARD){
-				throw new Exception("Dificultad no implementada");
+				int especia;
+				especia = decidirGastoHard(mapa, Integer.parseInt(player));
+				reclutarHard(mapa, Integer.parseInt(player), especia);
 			}
 			
 			mapa.saveEspecia(Integer.parseInt(player), salida);
@@ -116,4 +119,39 @@ public class Producir {
   
     }
     
+    static public int decidirGastoHard(map.GameMap mapa, int jugador){
+    	if (mapa.m_EspeciaImperio[jugador] >= 100)
+    		return 0;
+        return mapa.m_EspeciaImperio[jugador];
+    }
+
+    static public void reclutarHard(map.GameMap mapa, int jugador, int especia){
+
+    	if (especia <=1)
+    		return;
+    	//cada ejercito cuesta 2 de especia
+    	int ejercitosAColocar = especia/2;
+    	int ejercitosColocados = 0;
+
+		ArrayList<Integer> ciudadesRand = new ArrayList<Integer>();
+		//creo una lista de ciudades con contactos a enemigos, 
+		//mientras mas contacots mas chances de obtener un ejercito
+    	for (Map.Entry<Integer, City> origen : mapa.m_MapById.entrySet()) {
+	    	if (origen.getValue().m_Owner == jugador){
+	        	for (Map.Entry<Integer, Integer> destino : origen.getValue().m_RoadsCapasity.entrySet()){
+	        		if (mapa.m_MapById.get(destino.getKey()).m_Owner != jugador){
+	        			ciudadesRand.add(origen.getValue().m_CityId);
+	        		}
+	        	}
+	    	}
+    	}
+
+		Random rand = new Random();
+    	while (ejercitosColocados < ejercitosAColocar){
+			int random = rand.nextInt(ciudadesRand.size());
+			mapa.m_MapById.get(ciudadesRand.get(random)).m_Army++;
+			ejercitosColocados++;
+    	}
+  
+    }
 }

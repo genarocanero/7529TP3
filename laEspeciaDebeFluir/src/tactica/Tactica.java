@@ -41,10 +41,10 @@ public class Tactica {
 			mapa.loadEspeciaFromFile(2, cosecha2);
 
 			if (DIFICULT == EASY){
-				moverEjercitos(mapa, Integer.parseInt(player), impresion);
+				moverEjercitosEasy(mapa, Integer.parseInt(player), impresion);
 			}
 			if (DIFICULT == HARD){
-				throw new Exception("Dificultad no implementada");
+				moverEjercitosHard(mapa, Integer.parseInt(player), impresion);
 			}
 			
 			buffer.close();
@@ -59,7 +59,7 @@ public class Tactica {
 		}
     }
 
-    static public void moverEjercitos(map.GameMap mapa, int jugador, PrintWriter impresion) throws IOException{
+    static public void moverEjercitosEasy(map.GameMap mapa, int jugador, PrintWriter impresion) throws IOException{
 
         for (Map.Entry<Integer, City> origen : mapa.m_MapById.entrySet()) {
         	if (origen.getValue().m_Owner == jugador){
@@ -84,6 +84,35 @@ public class Tactica {
 		        			}
 		        		}
     	        	}
+        		}
+	        }
+    	}
+  
+    }
+    
+    static public void moverEjercitosHard(map.GameMap mapa, int jugador, PrintWriter impresion) throws IOException{
+
+        for (Map.Entry<Integer, City> origen : mapa.m_MapById.entrySet()) {
+        	if (origen.getValue().m_Owner == jugador){
+            	int contactos=0;//cantidad de concciones con ciudades enemigas
+	        	for (Map.Entry<Integer, City> destino : origen.getValue().m_RoadsDestination.entrySet()){
+
+	        		if (destino.getValue().m_Owner != jugador){
+	        			contactos++;
+	        		}
+	        	}
+	        	for (Map.Entry<Integer, City> destino : origen.getValue().m_RoadsDestination.entrySet()){
+
+        			//si la ciudad tiene mas ejercito que el enemigo mandar la mitad
+	        		if (destino.getValue().m_Owner != jugador && destino.getValue().m_CityId>1){
+	        			if (origen.getValue().m_Army > destino.getValue().m_Army){
+	        				int marchar = origen.getValue().m_Army/contactos;
+	        				if (marchar >0){
+	        					mapa.saveMarchingArmy(origen.getValue(),destino.getValue(),marchar, impresion);
+		        				origen.getValue().m_Army -= marchar;
+	        				}
+	        			}
+	        		}
         		}
 	        }
     	}
